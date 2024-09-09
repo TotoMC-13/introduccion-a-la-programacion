@@ -1,0 +1,2 @@
+sumaDigitos :: Integer -> Integer
+sumaDigitos
