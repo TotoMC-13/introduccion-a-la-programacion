@@ -8,9 +8,7 @@ f2 n q | n == 1 = q^n
 
 f3 :: Integer -> Integer -> Integer
 f3 n q | n == 0 = 0
-       | n == 1 = q
-       | otherwise = g(2*n) q
-       where
-       g :: Integer -> Integer -> Integer
-       g n q | n == 1 = q
-             | otherwise = g(n-1) q + q^n
+       | otherwise = f2(2*n) q
+
+f4 :: Integer -> Integer -> Integer
+f4 n q = f3 n q - f2 (n - 1) q
