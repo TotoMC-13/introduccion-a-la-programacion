@@ -14,10 +14,5 @@ sumaPrimerosNPrimos m | m == 0 = 0
                       | esPrimo m = sumaPrimerosNPrimos (m-1) + m
                       | otherwise = sumaPrimerosNPrimos (m-1)
 
-esSumaInicialDePrimosDesde :: Integer -> Integer -> Bool
-esSumaInicialDePrimosDesde n desde | sumaPrimerosNPrimos n > n = False
-                                   | sumaPrimerosNPrimos n == n = True
-                                   | otherwise = esSumaInicialDePrimosDesde (desde+1) n
-
-esSumaInicialDePrimos :: Integer -> Bool
-esSumaInicialDePrimos n = esSumaInicialDePrimosDesde 0 n
+-- esSumaInicialPrimosDesde :: Integer -> Integer
+-- esSumaInicialPrimosDesde n m | 

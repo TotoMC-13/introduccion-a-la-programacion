@@ -8,8 +8,8 @@ pertenece n (x:xs)
 -- 2
 todosIguales :: (Eq t) => [t] -> Bool
 todosIguales [] = True
-todosIguales (x:[]) = True
-todosIguales (x:y:xs) | x == y = todosIguales(xs)
+todosIguales [x] = True
+todosIguales (x:y:xs) | x == y = todosIguales xs
                       | otherwise = False
 
 -- 3
