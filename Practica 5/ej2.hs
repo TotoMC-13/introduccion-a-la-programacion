@@ -14,7 +14,9 @@ todosIguales (x:y:xs) | x == y = todosIguales xs
 
 -- 3
 todosDistintos :: (Eq t) => [t] -> Bool
-todosDistintos
+todosDistintos [] = True
+todosDistintos [x] = True
+todosDistintos (x:xs) = not (pertenece x xs) && todosDistintos xs
 
 -- 5
 quitar :: (Eq t) => t -> [t] -> [t]
