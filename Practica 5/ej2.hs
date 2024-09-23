@@ -24,3 +24,8 @@ quitar _ [] = []
 quitar elem (x:xs) 
         | elem == x = xs
         | otherwise = x : quitar elem xs
+
+-- 6
+quitarTodos :: (Eq t ) => t -> [t] -> [t]
+quitarTodos _ [] = []
+quitarTodos x (x:xs) | 
