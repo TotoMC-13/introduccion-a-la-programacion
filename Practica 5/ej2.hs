@@ -1,3 +1,5 @@
+module Ej2 where
+
 -- 1
 pertenece :: (Eq t) => t -> [t] -> Bool
 pertenece _ [] = False
@@ -26,6 +28,39 @@ quitar elem (x:xs)
         | otherwise = x : quitar elem xs
 
 -- 6
-quitarTodos :: (Eq t ) => t -> [t] -> [t]
+quitarTodos :: (Eq t) => t -> [t] -> [t]
 quitarTodos _ [] = []
-quitarTodos x (x:xs) | 
+quitarTodos n (x:xs) 
+                | n /= x = x : quitarTodos n xs
+                | n == x = quitarTodos n xs
+
+-- 7
+eliminarRepetidos :: (Eq t) => [t] -> [t]
+eliminarRepetidos [] = []
+eliminarRepetidos [x] = [x]
+eliminarRepetidos (x:xs)
+        | pertenece x xs = eliminarRepetidos xs
+        | otherwise =  x : eliminarRepetidos xs
+
+-- 8
+mismosElementos :: (Eq t) => [t] -> [t] -> Bool
+mismosElementos x y = sonIguales (eliminarRepetidos x) (eliminarRepetidos y)
+
+sonIguales :: (Eq t) => [t] -> [t] -> Bool
+sonIguales [] [] = True
+sonIguales _ [] = False
+sonIguales [] _ = False
+sonIguales (x:xs) (y:ys)
+        | x:xs == y:ys = True
+        | pertenece x (y:ys) = sonIguales xs (quitar x (y:ys))
+        | otherwise = False
+
+-- 9
+capicua :: (Eq t) => [t] -> Bool
+capicua [] = True
+capicua x = x == reverso x 
+        where
+        reverso :: [t] -> [t]
+        reverso [] = []
+        reverso [x] = [x]
+        reverso (x:xs) = reverso xs ++ [x]
