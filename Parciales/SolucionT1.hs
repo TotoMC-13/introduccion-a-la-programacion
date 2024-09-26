@@ -45,9 +45,12 @@ amigosDe x ((y1,y2):ys)
     | otherwise = amigosDe x ys
 
 personaConMasAmigos :: [(String, String)] -> String
-personaConMasAmigos [] = []
-personaConMasAmigos ((x1,x2):xs)
-    | 
+personaConMasAmigos [] = ""
+personaConMasAmigos ((x1,x2):xs) = tuplaComponenteYMasAlto (tuplasNumerosAmigos ((x1,x2):xs))
+
+tuplasNumerosAmigos :: [(String, String)] -> [(String, Integer)]
+tuplasNumerosAmigos [] = []
+tuplasNumerosAmigos ((x1,x2):xs) = [cuantosAmigos x1 (amigosDe x1 ((x1,x2):xs))] ++ [cuantosAmigos x2 (amigosDe x2 ((x1,x2):xs))] ++ tuplasNumerosAmigos xs
 
 longitudLista :: [String] -> Integer
 longitudLista [] = 0
@@ -58,8 +61,8 @@ cuantosAmigos :: String -> [String] -> (String, Integer)
 cuantosAmigos x [] = (x, 0)
 cuantosAmigos x y = (x, longitudLista y)
 
-tuplaComponenteYMasAlto :: [(String, Integer)] -> (String, Integer)
-tuplaComponenteYMasAlto [(x1,x2)] = (x1,x2)
+tuplaComponenteYMasAlto :: [(String, Integer)] -> String
+tuplaComponenteYMasAlto [(x1,x2)] = x1
 tuplaComponenteYMasAlto ((x1,x2):(y1,y2):xs)
     | x2 > y2 = tuplaComponenteYMasAlto ((x1,x2) : xs)
     | x2 < y2 = tuplaComponenteYMasAlto ((y1,y2) : xs)
