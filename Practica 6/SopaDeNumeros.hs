@@ -18,11 +18,22 @@ volcarFilas [] = []
 volcarFilas (x:xs) = x ++ volcarFilas xs
 
 -- Ej 6
+masRepetido :: Tablero -> Integer
+masRepetido x = tuplaMayorY (generarTuplas (sacarRepetidos (volcarFilas x)) (volcarFilas x))
 
-masRepetido :: (Eq t) => [t] -> t
-masRepetido _ [x] = x
-masRepetido x (y:ys)
-    | 
+tuplaMayorY :: (Eq t) => [(t, Integer)] -> t
+tuplaMayorY [(x1,x2)] = x1
+tuplaMayorY ((x1,x2):(y1,y2):xs)
+    | x2 >= y2 = tuplaMayorY((x1,x2):xs)
+    | otherwise = tuplaMayorY((y1,y2):xs)
+
+generarTuplas :: (Eq t) => [t] ->[t] -> [(t, Integer)]
+generarTuplas [] _ = []
+generarTuplas (x:xs) y = (x, contarApariciones x y) : generarTuplas xs y
+
+tuplaApariciones :: (Eq t) => t -> [t] -> (t, Integer)
+tuplaApariciones x [] = (x, 0)
+tuplaApariciones x (y:ys) = (x,contarApariciones x (y:ys)) 
 
 contarApariciones :: (Eq t) => t -> [t] -> Integer
 contarApariciones _ [] = 0
@@ -41,3 +52,5 @@ estaEn _ [] = False
 estaEn x (y:ys)
     | x == y = True
     | otherwise = estaEn x ys
+
+-- Ej 7
