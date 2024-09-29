@@ -60,7 +60,7 @@ valoresDeCamino (x:xs) ((y1,y2):ys) = elemPosN y2 (elemPosN y1 (x:xs)) : valores
 
 elemPosN :: (Eq t) => Integer -> [t] -> t
 elemPosN 0 (y:ys) = y
-elemPosN x (y:ys) = x > 0 = elemPosN (x-1) ys
+elemPosN x (y:ys) | x > 0 = elemPosN (x-1) ys
 
 -- Ej 8
 esCaminoFibo :: [Integer] -> Integer -> Bool
