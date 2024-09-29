@@ -54,3 +54,20 @@ estaEn x (y:ys)
     | otherwise = estaEn x ys
 
 -- Ej 7
+valoresDeCamino :: Tablero -> Camino -> [Integer]
+valoresDeCamino _ [] = []
+valoresDeCamino (x:xs) ((y1,y2):ys) = elemPosN y2 (elemPosN y1 (x:xs)) : valoresDeCamino (x:xs) ys
+
+elemPosN :: (Eq t) => Integer -> [t] -> t
+elemPosN 0 (y:ys) = y
+elemPosN x (y:ys) = x > 0 = elemPosN (x-1) ys
+
+-- Ej 8
+esCaminoFibo :: [Integer] -> Integer -> Bool
+esCaminoFibo [x] y = x == fibonacci y
+esCaminoFibo (x:xs) y = x == fibonacci y && esCaminoFibo xs (y+1)
+
+fibonacci :: Integer -> Integer
+fibonacci 0 = 0
+fibonacci 1 = 1
+fibonacci n = fibonacci (n - 1) + fibonacci (n - 2)
