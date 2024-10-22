@@ -112,3 +112,44 @@ def tres_seguidos(numeros: list) -> bool:
             return True
             
     return False
+
+def tres_vocales(palabra: str) -> bool:
+    vocales = ["a","e","i","o","u"]
+
+    for i in palabra:
+        if i in vocales:
+            vocales.remove(i)
+
+    if len(vocales) <= 2:
+        return True
+    else:
+        return False
+
+def pos_seq_larga(numeros: list[int]) -> int:
+    tuplas: list[tuple[int,int]] = longitud_secuencias(numeros)
+    sec_mas_larga: tuple[int,int] = tuplas[0]
+
+    for i in range(len(tuplas)):
+        if sec_mas_larga[1] < tuplas[i][1]:
+            sec_mas_larga = tuplas[i]
+    
+    return sec_mas_larga[0]
+
+def longitud_secuencias(numeros: list[int]) -> list[tuple[int,int]]: #tuple[pos_inicio, longitud]
+    tuplas: list[tuple[int,int]] = []
+    long_sec: int = 1
+    pos_inicial: int = 0
+
+    for i in range(len(numeros)-1):
+        if numeros[i] == numeros[i+1]:
+            long_sec += 1
+        else:
+            tuplas.append((pos_inicial,long_sec))
+            long_sec = 1
+            pos_inicial = i+1
+    
+    tuplas.append((pos_inicial,long_sec))
+
+    return tuplas
+
+print(pos_seq_larga([1,1,1,2,2,2,2,3,3,5,5,5,5,5,5,5]))
