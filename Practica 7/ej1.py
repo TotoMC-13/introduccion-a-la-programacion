@@ -152,4 +152,13 @@ def longitud_secuencias(numeros: list[int]) -> list[tuple[int,int]]: #tuple[pos_
 
     return tuplas
 
-print(pos_seq_larga([1,1,1,2,2,2,2,3,3,5,5,5,5,5,5,5]))
+def cant_digitos_impares(numeros: list[int]) -> int:
+    impares: int = 0
+
+    for numero in numeros:
+        while numero > 0:
+            if numero % 2 != 0:
+                impares += 1
+            numero = numero // 10
+    
+    return impares
