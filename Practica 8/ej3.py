@@ -1,3 +1,5 @@
+from queue import LifoQueue as Pila
+
 def agrupar_por_longitud(nombre_archivo: str) -> dict:
     archivo = open(nombre_archivo, "r", encoding="utf-8")
     contenido = archivo.readline()
@@ -51,3 +53,21 @@ def sumar_todo(numeros: list[int]) -> int:
 
     return suma
 
+historial: dict[str, Pila[str]] = {}
+
+def visitar_sitio(usuario: str, sitio: str) -> dict[str, Pila[str]]:
+    global historial
+    sitios_visitados: Pila[str] = Pila()
+
+    if usuario in historial:
+        historial[usuario].put(sitio)
+    else:
+        historial[usuario] = sitios_visitados
+        sitios_visitados.put(sitio)
+
+def navegar_atras(usuario: str) -> dict[str, Pila[str]]:
+    global historial
+
+
+visitar_sitio("TotoMC", "www.youtube.com")
+print(historial)
