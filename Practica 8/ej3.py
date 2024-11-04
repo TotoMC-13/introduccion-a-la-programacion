@@ -68,6 +68,30 @@ def visitar_sitio(usuario: str, sitio: str) -> dict[str, Pila[str]]:
 def navegar_atras(usuario: str) -> dict[str, Pila[str]]:
     global historial
 
+    sitio_actual = historial[usuario].get()
+    sitio_anterior = historial[usuario].get()
 
-visitar_sitio("TotoMC", "www.youtube.com")
-print(historial)
+    historial[usuario].put(sitio_anterior)
+    historial[usuario].put(sitio_actual)
+    historial[usuario].put(sitio_anterior)
+
+inventario: dict[str, dict[str, float | int]] = {"banana":{"precio":5.25, "cantidad": 2}}
+
+def agregar_producto(nombre: str, precio: float, cantidad: int):
+    global inventario
+    inventario[nombre]["precio"] = precio
+    inventario[nombre]["cantidad"] = cantidad
+
+def actualizar_stock(nombre: str, cantidad):
+    global inventario
+    inventario[nombre]["cantidad"] = cantidad
+
+def actualizar_precios(nombre: str, precio: int):
+    global inventario
+    inventario[nombre]["precio"] = precio
+
+def calcular_valor_inventario() -> float:
+    for producto in inventario:
+        inventario
+    
+calcular_valor_inventario()
