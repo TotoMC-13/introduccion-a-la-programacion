@@ -26,8 +26,9 @@ def cantidad_de_apariciones(nombre_archivo: str, palabra: str) -> int:
     contenido = archivo.readlines()
     palabras: list[str] = []
     nueva_palabra: str = ""
-    contador: dict = {}
+    apariciones: int = 0
 
+    #Integracion de split()
     for linea in contenido:
         for letra in linea:
             if letra != " " and letra != "\n" and linea:
@@ -40,23 +41,28 @@ def cantidad_de_apariciones(nombre_archivo: str, palabra: str) -> int:
 
     if nueva_palabra:
         palabras.append(nueva_palabra)
-    
-    for palabra in palabras:
-        if palabra in contador:
-            contador[palabra] += 1
+
+    for clave in palabras:
+       if clave == palabra:
+           apariciones += 1
+
+    return apariciones
+
+#print("Cantidad de apariciones:", cantidad_de_apariciones("Practica 8\ejercicios21.3.txt", "aa"))
+
+def clonar_sin_comentarios(nombre_archivo: str):
+    archivo = open(nombre_archivo, "r+")
+    contenido = archivo.readlines()
+
+    for linea in contenido:
+        palabras = linea.split()
+
+        if palabras[0][0] == "#":
+            pass
         else:
-            contador[palabra] = 1
+            archivo.write(linea)
+    
+    archivo.close()
 
-    max_palabra: str = ""
-    max_apariciones: int = 0
+# clonar_sin_comentarios("Practica 8\ejercicio22.txt")
 
-    for clave in contador:
-        valor_actual: int = contador[clave]
-
-        if valor_actual > max_apariciones:
-            max_apariciones = valor_actual
-            
-
-    return contador
-
-print(cantidad_de_apariciones("/home/Estudiante/Documentos/introduccion-a-la-programacion/Practica 8/ejercicios21-27.txt", "a"))

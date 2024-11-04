@@ -11,7 +11,7 @@ def agrupar_por_longitud(nombre_archivo: str) -> dict:
         for letra in linea:
             if letra != " " and letra != "\n":
                 nueva_palabra += letra
-            else:
+            elif linea != "\n":
                 palabras.append(nueva_palabra)
                 nueva_palabra = ""
     
@@ -28,7 +28,7 @@ def agrupar_por_longitud(nombre_archivo: str) -> dict:
 
     return contador
 
-print(agrupar_por_longitud("/home/Estudiante/Documentos/introduccion-a-la-programacion/Practica 8/ejercicios21-27.txt"))
+#print(agrupar_por_longitud("Practica 8\ejercicios21.3.txt"))
 
 # list[tuple[nombre,nota_examen]] -> []
 def calcular_promedio_por_estudiante(notas: list[tuple[str,float]]) -> dict[str,float]:

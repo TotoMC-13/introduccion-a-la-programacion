@@ -74,10 +74,7 @@ def esta_bien_balanceada(s: str) -> bool:
         if balance < 0:
             return False
 
-    if balance != 0:
-        return False
-    else:
-        return True
+    return balance == 0
     
 def evaluar_expresion(expresion: str) -> float:
     numeros: Pila[int] = Pila()
