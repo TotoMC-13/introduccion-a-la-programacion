@@ -2,17 +2,18 @@ from queue import LifoQueue as Pila
 
 def agrupar_por_longitud(nombre_archivo: str) -> dict:
     archivo = open(nombre_archivo, "r", encoding="utf-8")
-    contenido = archivo.readline()
+    contenido = archivo.readlines()
     palabras: list[str] = []
     nueva_palabra: str = ""
     contador: dict = {}
 
-    for letra in contenido:
-        if letra != " ":
-            nueva_palabra += letra
-        else:
-            palabras.append(nueva_palabra)
-            nueva_palabra = ""
+    for linea in contenido:
+        for letra in linea:
+            if letra != " " and letra != "\n":
+                nueva_palabra += letra
+            else:
+                palabras.append(nueva_palabra)
+                nueva_palabra = ""
     
     if nueva_palabra:
         palabras.append(nueva_palabra)
@@ -27,7 +28,7 @@ def agrupar_por_longitud(nombre_archivo: str) -> dict:
 
     return contador
 
-# agrupar_por_longitud("Practica 8\ejercicio16.txt")
+print(agrupar_por_longitud("/home/Estudiante/Documentos/introduccion-a-la-programacion/Practica 8/ejercicios21-27.txt"))
 
 # list[tuple[nombre,nota_examen]] -> []
 def calcular_promedio_por_estudiante(notas: list[tuple[str,float]]) -> dict[str,float]:
@@ -75,23 +76,21 @@ def navegar_atras(usuario: str) -> dict[str, Pila[str]]:
     historial[usuario].put(sitio_actual)
     historial[usuario].put(sitio_anterior)
 
-inventario: dict[str, dict[str, float | int]] = {"banana":{"precio":5.25, "cantidad": 2}}
+inventario: dict[str, dict[str, float | int]] = {}
 
-def agregar_producto(nombre: str, precio: float, cantidad: int):
-    global inventario
-    inventario[nombre]["precio"] = precio
+def agregar_producto(inventario: dict[str, dict[str, float | int]], nombre: str, precio: float, cantidad: int):
+    inventario[nombre]= {"precio": precio, "cantidad": cantidad}
+
+def actualizar_stock(inventario: dict[str, dict[str, float | int]], nombre: str, cantidad):
     inventario[nombre]["cantidad"] = cantidad
 
-def actualizar_stock(nombre: str, cantidad):
-    global inventario
-    inventario[nombre]["cantidad"] = cantidad
-
-def actualizar_precios(nombre: str, precio: int):
-    global inventario
+def actualizar_precios(inventario: dict[str, dict[str, float | int]], nombre: str, precio: int):
     inventario[nombre]["precio"] = precio
 
-def calcular_valor_inventario() -> float:
+def calcular_valor_inventario(inventario: dict[str, dict[str, float | int]]) -> float:
+    valor_inventario: float = 0
+
     for producto in inventario:
-        inventario
+        valor_inventario += inventario[producto]["cantidad"] * inventario[producto]["precio"]
     
-calcular_valor_inventario()
+    return valor_inventario
