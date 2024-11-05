@@ -66,3 +66,36 @@ def clonar_sin_comentarios(nombre_archivo: str):
 
 # clonar_sin_comentarios("Practica 8\ejercicio22.txt")
 
+def invertir_lineas(nombre_archivo: str):
+    archivo = open(nombre_archivo, "r+")
+    contenido = archivo.readlines()
+
+    for i in range(len(contenido) - 1, -1, -1):
+        if i == len(contenido) - 1:
+            archivo.write(contenido[i]+"\n")
+        else:
+            archivo.write(contenido[i])
+    
+    archivo.close()
+
+# invertir_lineas("Practica 8\ejercicio23.txt")
+
+def agregar_frase_al_final(nombre_archivo: str, frase: str):
+    archivo = open(nombre_archivo, "r")
+    archivo.write(frase)
+    archivo.close()
+
+# agregar_frase_al_final("Practica 8\ejercicio23.txt", "pooping")
+
+# TERMNINAR
+# def agregar_frase_al_principio(nombre_archivo: str, frase: str):
+#     archivo = open(nombre_archivo, "r+")
+#     contenido = archivo.readlines()
+    
+#     archivo.write(frase + "\n")
+#     for linea in contenido:
+#         archivo.write(linea)
+
+#     archivo.close()
+
+# agregar_frase_al_principio("Practica 8\ejercicio23.txt", "pooping")
