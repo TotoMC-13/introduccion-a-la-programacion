@@ -81,21 +81,19 @@ def invertir_lineas(nombre_archivo: str):
 # invertir_lineas("Practica 8\ejercicio23.txt")
 
 def agregar_frase_al_final(nombre_archivo: str, frase: str):
-    archivo = open(nombre_archivo, "r")
+    archivo = open(nombre_archivo, "r+")
     archivo.write(frase)
     archivo.close()
 
-# agregar_frase_al_final("Practica 8\ejercicio23.txt", "pooping")
+# agregar_frase_al_final("Practica 8\ejercicio23.txt", "test")
 
-# TERMNINAR
-# def agregar_frase_al_principio(nombre_archivo: str, frase: str):
-#     archivo = open(nombre_archivo, "r+")
-#     contenido = archivo.readlines()
-    
-#     archivo.write(frase + "\n")
-#     for linea in contenido:
-#         archivo.write(linea)
+def agregar_frase_al_principio(nombre_archivo: str, frase: str):
+    archivo = open(nombre_archivo, "r")
+    contenido = archivo.read()
+    archivo.close()
 
-#     archivo.close()
+    archivo = open(nombre_archivo, "w")
+    archivo.write(frase + "\n" + contenido)
+    archivo.close()
 
-# agregar_frase_al_principio("Practica 8\ejercicio23.txt", "pooping")
+# agregar_frase_al_principio("Practica 8/ejercicio23.txt", "test")
