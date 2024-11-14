@@ -181,6 +181,4 @@ def mayor_z_tupla(tuplas: list[tuple[int, int, int]]) -> tuple[int, int, int]:
 
     return res
 
-print(subsecuencia_mas_larga(["perro", "pajaro", "gato", "perro", "pajaro","perro","gato","gato"]))
-
-
+# print(subsecuencia_mas_larga(["perro", "pajaro", "gato", "perro", "pajaro","perro","gato","gato"]))
