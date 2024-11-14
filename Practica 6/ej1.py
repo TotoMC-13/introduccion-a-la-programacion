@@ -4,7 +4,7 @@ def imprimir_hola_mundo():
     print("¡Hola mundo!")
 
 def imprimir_un_verso():
-    print("The ear may get to busy \nWe all need our sleep \nListened to the contemporaries")
+    print("Hola \ncomo \nestas?")
 
 def raizDe2():
     print(round(2**(1/2),4))

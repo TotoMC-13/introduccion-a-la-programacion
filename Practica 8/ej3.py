@@ -54,6 +54,41 @@ def sumar_todo(numeros: list[int]) -> int:
 
     return suma
 
+def la_palabra_mas_frecuente(nombre_archivo: str) -> str:
+    archivo = open(nombre_archivo, "r", encoding="utf-8")
+    contenido = archivo.readlines()
+    palabras: dict[str, int] = {}
+    nueva_palabra: str = ""
+    repeticiones_max: int = 0
+    mas_repetida: str
+
+    for linea in contenido:
+        for letra in linea:
+            if letra != " " and letra != "\n":
+                nueva_palabra += letra
+            elif letra != "\n":
+                if nueva_palabra not in palabras:
+                    palabras[nueva_palabra] = 1
+                else:
+                    palabras[nueva_palabra] += 1
+                nueva_palabra = ""
+    
+    archivo.close()
+
+    if nueva_palabra and nueva_palabra not in palabras:
+        palabras[nueva_palabra] = 1
+    elif nueva_palabra:
+        palabras[nueva_palabra] += 1
+    
+    for palabra in palabras:
+        if palabras[palabra] > repeticiones_max:
+            repeticiones_max = palabras[palabra]
+            mas_repetida = palabra
+
+    return mas_repetida
+
+print(la_palabra_mas_frecuente("Practica 8\ejercicio21.3.txt"))
+
 historial: dict[str, Pila[str]] = {}
 
 def visitar_sitio(usuario: str, sitio: str) -> dict[str, Pila[str]]:
@@ -79,10 +114,10 @@ def navegar_atras(usuario: str) -> dict[str, Pila[str]]:
 inventario: dict[str, dict[str, float | int]] = {}
 
 def agregar_producto(inventario: dict[str, dict[str, float | int]], nombre: str, precio: float, cantidad: int):
-    inventario[nombre]= {"precio": precio, "cantidad": cantidad}
+    inventario[nombre] = {"precio": precio, "cantidad": cantidad}
 
 def actualizar_stock(inventario: dict[str, dict[str, float | int]], nombre: str, cantidad):
-    inventario[nombre]["cantidad"] = cantidad
+    inventario[nombre]["cantidad"] += cantidad
 
 def actualizar_precios(inventario: dict[str, dict[str, float | int]], nombre: str, precio: int):
     inventario[nombre]["precio"] = precio
@@ -94,3 +129,10 @@ def calcular_valor_inventario(inventario: dict[str, dict[str, float | int]]) -> 
         valor_inventario += inventario[producto]["cantidad"] * inventario[producto]["precio"]
     
     return valor_inventario
+
+# inventario = {}
+# agregar_producto(inventario, "Camisa", 20.0, 50)
+# agregar_producto(inventario, "Pantalon", 30.0, 30)
+# actualizar_stock(inventario, "Camisa", 10)
+# valor_total = calcular_valor_inventario(inventario)
+# print("Valor total del inventario:", valor_total) # Deber ́ıa imprimir 2100.0
