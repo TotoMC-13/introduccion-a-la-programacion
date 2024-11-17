@@ -127,7 +127,7 @@ def columna(matriz: list[list[int]], n_columna: int):
 def matriz_transpuesta(matriz: list[list[int]]) -> list[list[int]]:
     matriz_resultado: list[list[int]] = []
     
-    for i in range(len(matriz)):
+    for i in range(len(matriz[0])):
         matriz_resultado.append(columna(matriz, i))
     
     return matriz_resultado
