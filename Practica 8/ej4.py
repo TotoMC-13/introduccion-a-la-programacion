@@ -9,6 +9,8 @@ def contar_lineas(nombre_archivo: str) -> int:
 
     return contador
 
+print(contar_lineas("Practica 8/hola.txt"))
+
 def existe_palabra(nombre_archivo: str, palabra: str) -> bool:
     archivo = open(nombre_archivo, "r")
     existe_palabra: bool = False

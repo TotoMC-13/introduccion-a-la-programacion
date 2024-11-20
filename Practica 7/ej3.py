@@ -1,96 +1,107 @@
-from random import randint
+import numpy as np
 
-def estudiantes() -> list[str]:
-    nombre: str = ""
-    nombres: list[str] = []
+def es_matriz(matriz: list[list[int]]) -> bool:
+    if len(matriz) == 0 or len(matriz[0]) == 0:
+        return False
 
-    while True:
-        nombre = input("Ingrese el nombre: ")
-        if nombre == "listo" or nombre == "":
-            break
-        nombres.append(nombre)
-
-    return nombres
-
-def historial_sube() -> list[tuple[str, int]]:
-    historial: list[tuple[str, int]] = []
-    while True:
-        accion: str = input("Ingrese la accion: ")
-        if accion == "X":
-            break
-        elif accion != "C" and accion != "D":
-            print("Accion invalida")
-            continue
-
-        monto: int = int(input("Ingrese el monto: "))
-
-        historial.append((accion, monto))
+    for i in range(len(matriz)-1):
+        if len(matriz[i]) != len(matriz[i+1]):
+            return False
     
-    return historial
+    return True
 
-def jugar_siete_y_medio() -> list[int]: # S = sacar carta, P = plantarse.
-    historial_cartas: list[int] = []
-    suma_total: float = 0
-    carta_actual: int
+def filas_ordenadas(matriz: list[list[int]]) -> list[bool]:
+    filas: list[bool] = []
 
-    while True:
-        print(f"Suma total: {suma_total}")
-        if suma_total > 7.5:
-            print("Te pasaste de 7.5, fin del juego.")
-            break
+    for fila in matriz:
+        if not ordenados(fila):
+            filas.append(False)
+        else:
+            filas.append(True)
         
-        eleccion: str = input("Desea sacar otra carta (S) o plantarse (P): ")
+    return filas
+    
+def ordenados(numeros: list) -> bool:
+    anterior: int = numeros[0]
 
-        if eleccion == "P":
-            break
-        elif eleccion == "S":
-            carta_actual = randint(1,12)
-            while carta_actual == 8 or carta_actual == 9:
-                carta_actual = randint(1,12)
-            historial_cartas.append(carta_actual)
-            if carta_actual in range(10,13):
-                suma_total += 0.5
-            else:
-                suma_total += carta_actual
+    for i in numeros:
+        if i < anterior:
+            return False
+        anterior = i
 
-        print(f"Carta obtenida: {carta_actual}")
+    return True
 
-    print(f"Suma final: {suma_total}")
-    return historial_cartas
+def columna(matriz: list[list[int]], n_columna: int):
+    columna: list[int] = []
 
-def password_gen() -> str:
-    password: str = input("Ingrese su nuevo password: ")
+    for fila in matriz:
+        columna.append(fila[n_columna])
+    
+    return columna
 
-    if len(password) > 8 and tiene_minus(password) and tiene_mayus(password) and tiene_num(password):
-        return "verde"
-    elif len(password) < 5:
-        return "roja"
-    else:
-        return "amarilla"
+def matriz_transpuesta(matriz: list[list[int]]) -> list[list[int]]:
+    matriz_resultado: list[list[int]] = []
+    
+    for i in range(len(matriz[0])):
+        matriz_resultado.append(columna(matriz, i))
+    
+    return matriz_resultado
 
-def tiene_minus(password:  str) -> bool:
-    minus: str = "abcdefghijklmnopqrstuvwxyz"
+def columnas_ordenadas(matriz: list[list[int]]) -> list[bool]:
+    return filas_ordenadas(matriz_transpuesta(matriz))
 
-    for i in password:
-        if i in minus:
-            return True
+def transponer(matriz: list[list[int]]) -> list[list[int]]:
+    return matriz_transpuesta(matriz)
+
+def quien_gana_tateti(tablero: list[list[str]]) -> int:  # 0 si gana O, 1 si gana X, 2 si es empate.
+    matrices: list[list[list[str]]] = [tablero, matriz_transpuesta(tablero)]
+
+    for matriz in matrices:
+        for fila in matriz:
+            if todos_iguales(fila) and fila[0] != "":
+                return quien_gana(fila[0])
+
+        if matriz == tablero:
+            if matriz[0][0] == matriz[1][1] == matriz[2][2] and matriz[0][0] != "":
+                return quien_gana(matriz[0][0])
+            elif matriz[0][2] == matriz[1][1] == matriz[2][0] and matriz[0][2] != "":
+                return quien_gana(matriz[0][2])
+
+    return 2
+
+def quien_gana(ganador: str) -> int:
+    if ganador == "O":
+        return 0
+    elif ganador == "X":
+        return 1
+
+def todos_iguales(numeros: list[int]) -> bool:
+    for i in range(len(numeros)-1):
+        if numeros[i] != numeros[i+1]:
+            return False
         
-    return False
+    return True
 
-def tiene_mayus(password:  str) -> bool:
-    mayus: str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+def mul_matriz_aleatoria_n_veces(dimension: int, potencia: int) -> list[list[float]]:
+    matriz = np.random.random((dimension, dimension)).tolist()
+    print(matriz)
 
-    for i in password:
-        if i in mayus:
-            return True
-        
-    return False
+    while potencia > 0:
+        potencia -= 1
+        matriz = multiplicar_matrices(matriz, matriz)
+    
+    return matriz
 
-def tiene_num(password:  str) -> bool:
-    numeros: str = "0123456789"
+def multiplicar_matrices(matriz_a: list[list[float]], matriz_b: list[list[float]]) -> list[list[float]]:
+    resultado: list[list[float]] = []
+    
+    for i in range(len(matriz_a)):
+        nueva_fila = []
+        for j in range(len(matriz_b[0])):
+            suma = 0
+            for k in range(len(matriz_b)):
+                suma += matriz_a[i][k] * matriz_b[k][j]
+            nueva_fila.append(suma)
+        resultado.append(nueva_fila)
 
-    for i in password:
-        if i in numeros:
-            return True
-        
-    return False
+    return resultado
